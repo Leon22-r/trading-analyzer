@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Trading Analyzer">
+  <rect width="512" height="512" rx="96" fill="#101828"/>
+  <path d="M112 344h288" stroke="#ffffff" stroke-width="28" stroke-linecap="round"/>
+  <path d="M128 304l72-72 58 58 126-126" fill="none" stroke="#22c55e" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="128" cy="304" r="18" fill="#22c55e"/>
+  <circle cx="200" cy="232" r="18" fill="#22c55e"/>
+  <circle cx="258" cy="290" r="18" fill="#ef4444"/>
+  <circle cx="384" cy="164" r="18" fill="#22c55e"/>
+</svg>

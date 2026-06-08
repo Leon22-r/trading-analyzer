@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Trading Analyzer">
+  <rect width="512" height="512" fill="#101828"/>
+  <path d="M96 352h320" stroke="#ffffff" stroke-width="28" stroke-linecap="round"/>
+  <path d="M112 312l80-80 64 64 144-144" fill="none" stroke="#22c55e" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
