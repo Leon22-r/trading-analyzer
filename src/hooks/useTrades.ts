@@ -11,6 +11,7 @@ import { createBackupPayload, parseBackupPayload } from "@/lib/backup";
 export type UseTradesReturn = {
   trades: Trade[];
   isLoading: boolean;
+  loadError: Error | null;
   saveTrade: (trade: Trade) => Promise<void>;
   deleteTrade: (id: string) => Promise<void>;
   importBackup: (file: File) => Promise<void>;
@@ -20,6 +21,7 @@ export type UseTradesReturn = {
 export function useTrades(): UseTradesReturn {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<Error | null>(null);
 
   async function refresh() {
     setTrades(await getTrades());
@@ -28,6 +30,7 @@ export function useTrades(): UseTradesReturn {
   useEffect(() => {
     getTrades()
       .then(setTrades)
+      .catch((err) => setLoadError(err instanceof Error ? err : new Error(String(err))))
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -61,5 +64,5 @@ export function useTrades(): UseTradesReturn {
     URL.revokeObjectURL(url);
   }
 
-  return { trades, isLoading, saveTrade, deleteTrade, importBackup, exportBackup };
+  return { trades, isLoading, loadError, saveTrade, deleteTrade, importBackup, exportBackup };
 }
