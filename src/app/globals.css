@@ -601,3 +601,9 @@ textarea {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.validation-error {
+  color: var(--loss);
+  font-size: 0.85rem;
+  margin: 0;
+}
