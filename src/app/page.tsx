@@ -27,16 +27,25 @@ export default function Home() {
   const [selectedTradeId, setSelectedTradeId] = useState<string | null>(null);
   const [editingTradeId, setEditingTradeId] = useState<string | null>(null);
   const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
+  const [isStandalone, setIsStandalone] = useState(false);
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   useEffect(() => {
+    const mq = window.matchMedia("(display-mode: standalone)");
+    setIsStandalone(mq.matches);
+    const onMqChange = (e: MediaQueryListEvent) => setIsStandalone(e.matches);
+    mq.addEventListener("change", onMqChange);
+
     registerServiceWorker();
     const handle = (e: Event) => {
       e.preventDefault();
       setInstallPrompt(e);
     };
     window.addEventListener("beforeinstallprompt", handle);
-    return () => window.removeEventListener("beforeinstallprompt", handle);
+    return () => {
+      mq.removeEventListener("change", onMqChange);
+      window.removeEventListener("beforeinstallprompt", handle);
+    };
   }, []);
 
   const addToast = useCallback(
@@ -138,7 +147,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="install-card">
+      {!isStandalone && <section className="install-card">
         <div>
           <strong>Install on Android or iOS</strong>
           <p>
@@ -154,7 +163,7 @@ export default function Home() {
         >
           Install app
         </button>
-      </section>
+      </section>}
 
       <SummaryGrid summary={summary} />
       <PnLChart equityPoints={equityPoints} />
