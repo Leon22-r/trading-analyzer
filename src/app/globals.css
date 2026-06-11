@@ -524,7 +524,12 @@ textarea {
   align-items: start;
   display: grid;
   gap: 16px;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.82fr);
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 1fr);
+  transition: grid-template-columns 250ms ease;
+}
+
+.trade-workspace.trade-selected {
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr);
 }
 
 .trade-history-panel {
@@ -663,8 +668,10 @@ textarea {
 
 .trade-detail-panel {
   min-width: 0;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
   position: sticky;
-  top: 18px;
+  top: 20px;
 }
 
 .trade-detail {
@@ -707,6 +714,13 @@ textarea {
   margin-top: 16px;
 }
 
+.screenshot-row img {
+  border-radius: 4px;
+  min-height: 120px;
+  object-fit: cover;
+  width: 100%;
+}
+
 .empty-state {
   align-items: center;
   background: var(--panel);
@@ -715,7 +729,7 @@ textarea {
   color: var(--muted);
   display: flex;
   justify-content: center;
-  min-height: 140px;
+  min-height: 220px;
   padding: 18px;
   text-align: center;
   font-family: var(--font-mono);

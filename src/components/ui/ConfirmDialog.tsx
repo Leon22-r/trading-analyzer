@@ -1,3 +1,5 @@
+import { createPortal } from "react-dom";
+
 type Props = {
   message: string;
   onConfirm: () => void;
@@ -5,7 +7,7 @@ type Props = {
 };
 
 export function ConfirmDialog({ message, onConfirm, onCancel }: Props) {
-  return (
+  return createPortal(
     <div className="confirm-backdrop" onClick={onCancel}>
       <div className="confirm-dialog" onClick={(e) => e.stopPropagation()}>
         <p>{message}</p>
@@ -18,6 +20,7 @@ export function ConfirmDialog({ message, onConfirm, onCancel }: Props) {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

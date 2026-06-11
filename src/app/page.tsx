@@ -1,7 +1,7 @@
 "use client";
 
 import type { ChangeEvent } from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTrades } from "@/hooks/useTrades";
 import { SummaryGrid } from "@/components/SummaryGrid";
 import { PerformanceCalendar } from "@/components/PerformanceCalendar";
@@ -24,6 +24,7 @@ export default function Home() {
   const { trades, isLoading, saveTrade, deleteTrade, importBackup, exportBackup } =
     useTrades();
 
+  const formRef = useRef<HTMLDivElement>(null);
   const [selectedTradeId, setSelectedTradeId] = useState<string | null>(null);
   const [editingTradeId, setEditingTradeId] = useState<string | null>(null);
   const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
@@ -168,7 +169,7 @@ export default function Home() {
       <SummaryGrid summary={summary} />
       <PnLChart equityPoints={equityPoints} />
 
-      <div className="dashboard-grid">
+      <div className="dashboard-grid" ref={formRef}>
         <TradeForm
           editingTrade={editingTrade}
           onSave={handleSaveTrade}
@@ -177,7 +178,7 @@ export default function Home() {
         <PerformanceCalendar trades={trades} />
       </div>
 
-      <div className="trade-workspace">
+      <div className={`trade-workspace${selectedTrade ? " trade-selected" : ""}`}>
         <TradeList
           trades={trades}
           isLoading={isLoading}
@@ -188,7 +189,8 @@ export default function Home() {
           trade={selectedTrade}
           onEdit={(t) => {
             setEditingTradeId(t.id);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            setSelectedTradeId(null);
+            formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
           }}
           onDelete={handleDeleteTrade}
           onClose={() => setSelectedTradeId(null)}
